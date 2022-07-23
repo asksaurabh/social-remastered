@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   # Action to create a new user from signup page
   def create
-    @user = User.new(params[:user])      # Fix this potential security hole.
+    @user = User.new(user_params)
     if(@user.save)
       # handle successful save
     else
@@ -20,4 +20,11 @@ class UsersController < ApplicationController
       render 'new', status: :unprocessable_entity
     end
   end
+
+  private
+
+    # returns only permitted attributes to the user instance for creation.
+    def user_params
+      params.require(:user).permit(:firstname, :lastname, :email, :password, :password_confirmation)
+    end
 end
