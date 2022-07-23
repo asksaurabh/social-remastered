@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if(@user.save)
       # On successful save, redirect to user's profile
+      flash[:success] = "Welcome to the Socials!"
       redirect_to @user
     else
       # Render the signup page(new.html.erb) with error messages
