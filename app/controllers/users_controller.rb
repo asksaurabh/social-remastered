@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   # Action to create a new user from signup page
   def create
-    @user = User.new(params[:user])
+    @user = User.new(params[:user])      # Fix this potential security hole.
     if(@user.save)
       # handle successful save
     else
