@@ -12,9 +12,7 @@
 
     <div class="container">
       <% flash.each do |flash_key, flash_message| %>
-        <div class="alert alert-<%= flash_key %>">
-          <%= flash_message %>
-        </div>
+        <%= content_tag(:div, flash_message, class: "alert alert-#{flash_key}") %>
       <% end %>
       <%= yield %>
       <%= render 'layouts/footer' %>
