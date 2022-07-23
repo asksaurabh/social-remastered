@@ -11,10 +11,15 @@
     <%= render 'layouts/header' %>
 
     <div class="container">
+      <!-- Flash success message for first time signup -->
       <% flash.each do |flash_key, flash_message| %>
         <%= content_tag(:div, flash_message, class: "alert alert-#{flash_key}") %>
       <% end %>
+
+      <!-- Body of the current page -->
       <%= yield %>
+
+      <!-- Footer -->
       <%= render 'layouts/footer' %>
       <%= debug(params) if Rails.env.development? %>
     </div>
