@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if(@user.save)
       # On successful save, redirect to user's profile
-      redirect_to user_url(@user)
+      redirect_to @user
     else
       # Render the signup page(new.html.erb) with error messages
       render 'new', status: :unprocessable_entity
