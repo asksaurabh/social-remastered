@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
     # !! -> returns the value in boolean context
     if !!(user && user.authenticate(params[:session][:email]))
       # Redirect to profile page of the user
+      
     else
       # Create an error message (Not quite right as flash persists)
       flash.now[:danger] = "Invalid email/password combination"
