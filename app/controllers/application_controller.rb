@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
 
-  def sayHello
-    render html: "Hello, Heroku!"
-  end
+  include SessionsHelper
 end
