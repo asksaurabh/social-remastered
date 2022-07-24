@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     if !!(user && user.authenticate(params[:session][:email]))
       # Redirect to profile page of the user
     else
-      # Create an error message
+      # Create an error message (Not quite right as flash persists)
       flash[:danger] = "Invalid email/password combination"
       render 'new', status: :unprocessable_entity
     end
