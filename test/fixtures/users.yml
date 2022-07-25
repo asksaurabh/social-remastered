@@ -1,1 +1,6 @@
-# empty
+# A test account 
+saurabh:
+  firstname: Saurabh
+  lastname: Kumar
+  email: saurabh@outlook.com
+  password_digest: <%= User.digest('password') %>
