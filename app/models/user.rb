@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  attr_accessor :remember_token
   before_save { self.email = self.email.downcase }
   validates :firstname, presence: true, length: { maximum: 50 }
   validates :lastname, presence: true, length: { maximum: 50 }
@@ -12,5 +13,18 @@ class User < ApplicationRecord
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
     BCrypt::Engine.cost
     BCrypt::Password.create(password, cost: cost)
+  end
+
+  # Remembering users involves creating a remember token and saving the digest of the token to the database.
+
+  # returns a random length-22 token
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  # Remembers a user in the database for use in persistent sessions.
+  def remember
+    self.remember_token = User.new_token
+    self.update_attribute(:remember_digest, User.digest(remember_token))
   end
 end
