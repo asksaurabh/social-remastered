@@ -28,6 +28,11 @@ class User < ApplicationRecord
     self.update_attribute(:remember_digest, User.digest(remember_token))
   end
 
+  # Forgets a user(Inverse of remember)
+  def forget 
+    self.update_attribute(:remember_digest, nil)
+  end
+
   # Returns true if the given remember token matches the digest
   # Similar to authenticate method.
   def authenticated?(browser_remember_token)
