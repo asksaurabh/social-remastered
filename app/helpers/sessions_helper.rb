@@ -24,7 +24,6 @@ module SessionsHelper
     
     # Otherwise look if someone was already logged-in(look in permanent cookie)
     elsif cookies.encrypted[:user_id]
-      raise       # The tests still pass, so this branch is currently untested.
       user = User.find_by(id: cookies.encrypted[:user_id])
       if user && user.authenticated?(cookies[:remember_token])
         log_in user
