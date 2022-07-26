@@ -37,6 +37,10 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_not is_logged_in?
     assert_response :see_other
     assert_redirected_to root_url
+
+    # Simulate a user clicking logout in a second tab
+    delete logout_path
+    assert_redirected_to root_url
     follow_redirect!
     assert_select "a[href=?]", login_path
     assert_select "a[href=?]", logout_path,      count: 0
