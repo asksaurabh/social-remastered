@@ -5,10 +5,30 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
+  # remembers a user in a persistent session(if not logged out)
+  def remember(user)
+
+    # Sets the remember token for curr user and updates the remember_digest
+    user.remember       
+
+    # Puts the id and token in the browser cookie.
+    cookies.permanent.encrypted[:user_id] = user.id
+    cookies.permanent[:remember_token] = user.remember_token
+  end
+
   # Returns the current logged-in user(if any)
   def current_user
+    # If their is someone in the temp session(means browser not closed yet)
     if session[:user_id]
       @current_user ||= User.find_by(id: session[:user_id])
+    
+    # Otherwise look if someone was already logged-in(look in permanent cookie)
+    elsif cookies.encrypted[:user_id]
+      user = User.find_by(id: cookies.encrypted[:user_id])
+      if user && user.authenticated?(cookies[:remember_token])
+        log_in user
+        @current_user = user
+      end
     end
   end
 

@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
     if !!(user && user.authenticate(params[:session][:password]))
       # Redirect to profile page of the user
       reset_session
+      remember user
       log_in user
       redirect_to user
     else
