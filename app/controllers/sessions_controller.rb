@@ -21,6 +21,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+
+    # Two separate tabs logouts to be a problem.
     log_out if logged_in?
     redirect_to root_url, status: :see_other
   end

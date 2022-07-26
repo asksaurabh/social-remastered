@@ -36,6 +36,12 @@ class User < ApplicationRecord
   # Returns true if the given remember token matches the digest
   # Similar to authenticate method.
   def authenticated?(browser_remember_token)
-    BCrypt::Password.new(remember_digest).is_password?(browser_remember_token)
+
+    # Two separate browser logout may cause digest be nil.
+    # if remember_digest.nil?
+    #   return false
+    # else
+      BCrypt::Password.new(remember_digest).is_password?(browser_remember_token)
+    # end
   end
 end
