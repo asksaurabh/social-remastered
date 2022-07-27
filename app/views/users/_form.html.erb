@@ -1,0 +1,22 @@
+<!-- Form to fill fn, ln, email, password, password_confir -->
+
+<%= form_with(model: @user) do |f| %>
+  <%= render 'shared/error_messages' %>
+
+  <%= f.label :firstname, "First Name" %>
+  <%= f.text_field :firstname, class: 'form-control' %>
+
+  <%= f.label :lastname, "Last Name" %>
+  <%= f.text_field :lastname, class: 'form-control' %>
+
+  <%= f.label :email %>
+  <%= f.text_field :email, class: 'form-control' %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password, class: 'form-control' %>
+
+  <%= f.label :password_confirmation, "Confirmation" %>
+  <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>
