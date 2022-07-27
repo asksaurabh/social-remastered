@@ -4,3 +4,9 @@ saurabh:
   lastname: Kumar
   email: saurabh@outlook.com
   password_digest: <%= User.digest('password') %>
+
+rishabh:
+  firstname: Rishabh
+  lastname: Kumar
+  email: rishabh@outlook.com
+  password_digest: <%= User.digest('password') %>

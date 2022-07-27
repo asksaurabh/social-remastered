@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   # Before filter to protect the access to edit page if not logged in
   before_action :logged_in_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update]
 
   # GET request to show sign-up page
   def new
@@ -55,9 +56,15 @@ class UsersController < ApplicationController
 
     # Confirms if the user is logged-in or not
     def logged_in_user
-      unless logged_in?
+      if logged_in? == false
         flash[:danger] = "Please log in"
         redirect_to login_url, status: :see_other
       end
+    end
+
+    # Confirms the correct user
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url, status: :see_other) if current_user?(@user) == false
     end
 end
