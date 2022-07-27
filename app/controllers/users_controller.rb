@@ -25,6 +25,11 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET request to edit details.
+  def edit
+    @user = User.find(params[:id])
+  end
+
   private
 
     # returns only permitted attributes to the user instance for creation.
