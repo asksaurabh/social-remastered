@@ -20,4 +20,20 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     # test for correct number of error messages
     assert_select "div.alert", text: "The form contains 4 errors."
   end
+
+  test "successful edit (password change optional)" do
+    get edit_user_path(@user)
+    assert_template 'users/edit'
+    new_fname = "Foo"
+    new_email = "admin@gmail.com"
+    patch user_path(@user), params: { user: {  firstname: new_fname, 
+                                                email: new_email,
+                                                password: "",
+                                                password_confirmation: "" } }
+    assert_not flash.empty?
+    assert_redirected_to @user 
+    @user.reload     # To see the updated changes
+    assert_equal new_fname, @user.firstname
+    assert_equal new_email, @user.email
+  end
 end
