@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  # Before filter to protect the access to edit page if not logged in
+  before_action :logged_in_user, only: [:edit, :update]
 
   # GET request to show sign-up page
   def new
@@ -47,5 +49,15 @@ class UsersController < ApplicationController
     # returns only permitted attributes to the user instance for creation.
     def user_params
       params.require(:user).permit(:firstname, :lastname, :email, :password, :password_confirmation)
+    end
+
+    # Before filters
+
+    # Confirms if the user is logged-in or not
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = "Please log in"
+        redirect_to login_url, status: :see_other
+      end
     end
 end
