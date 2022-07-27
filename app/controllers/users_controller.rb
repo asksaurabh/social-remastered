@@ -1,16 +1,16 @@
 class UsersController < ApplicationController
 
-  # Action to get the signup page
+  # GET request to show sign-up page
   def new
     @user = User.new
   end
 
-  # Action to get the profile page of a valid user in DB
+  # GET request to show user profile
   def show
     @user = User.find(params[:id])
   end
 
-  # Action to create a new user from signup page
+  # POST request to create a new user.
   def create
     @user = User.new(user_params)
     if(@user.save)
@@ -28,6 +28,16 @@ class UsersController < ApplicationController
   # GET request to edit details.
   def edit
     @user = User.find(params[:id])
+  end
+
+  # PATCH request to edit details.
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      # Handle a successful update.
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   private
