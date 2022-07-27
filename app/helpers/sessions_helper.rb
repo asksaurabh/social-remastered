@@ -34,7 +34,7 @@ module SessionsHelper
 
   # returns true if the given user is the current user
   def current_user?(user)
-    # If user = nil then nil = nil. Handle user = nil
+    # If user = nil and browser's cookie is clear so no current user then nil = nil. Handle user = nil
     return user && user == current_user
   end
 
