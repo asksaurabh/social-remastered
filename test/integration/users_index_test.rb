@@ -31,4 +31,11 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
       assert_redirected_to users_url
     end
   end
+
+  test "index as non-admin" do
+    log_in_as(@non_admin)
+    get users_path
+    #  There will be no Delete links for non-admin
+    assert_select 'a', text: "Delete", count: 0
+  end
 end
