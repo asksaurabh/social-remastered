@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   # Before filter to protect the access to edit page if not logged in
-  before_action :logged_in_user, only: [:index, :edit, :update]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :correct_user,   only: [:edit, :update]
+  before_action :admin_user,     only: [:destroy]
 
   def index
     @users = User.paginate(page: params[:page])
@@ -49,6 +50,13 @@ class UsersController < ApplicationController
     end
   end
 
+  # DELETE req to delete users by admins
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url, status: :see_other
+  end
+
   private
 
     # returns only permitted attributes to the user instance for creation.
@@ -71,5 +79,10 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_url, status: :see_other) if current_user?(@user) == false
+    end
+
+    # Confirms an admin user
+    def admin_user
+      redirect_to(root_url, status: :see_other) if current_user.admin? == false
     end
 end
