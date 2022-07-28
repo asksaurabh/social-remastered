@@ -53,7 +53,7 @@ class UsersController < ApplicationController
 
     # returns only permitted attributes to the user instance for creation.
     def user_params
-      params.require(:user).permit(:firstname, :lastname, :email, :password, :password_confirmation)
+      params.require(:user).permit(:firstname, :lastname, :email, :password, :password_confirmation, :admin)
     end
 
     # Before filters
