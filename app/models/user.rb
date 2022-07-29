@@ -41,15 +41,15 @@ class User < ApplicationRecord
     self.update_attribute(:remember_digest, nil)
   end
 
-  # Returns true if the given remember token matches the digest
+  # Generalized method to return true if token matches corres digest
   # Similar to authenticate method.
-  def authenticated?(browser_remember_token)
-
+  def authenticated?(attribute, token)
+    digest = self.send("#{attribute}_digest")
     # Two separate browser logout may cause digest be nil.
-    if remember_digest.nil?
+    if digest.nil?
       return false
     else
-      BCrypt::Password.new(remember_digest).is_password?(browser_remember_token)
+      BCrypt::Password.new(digest).is_password?(token)
     end
   end
 

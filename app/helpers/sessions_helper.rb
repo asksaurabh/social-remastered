@@ -31,7 +31,7 @@ module SessionsHelper
     # Otherwise look if someone was already logged-in(look in permanent cookie)
     elsif cookies.encrypted[:user_id]
       user = User.find_by(id: cookies.encrypted[:user_id])
-      if user && user.authenticated?(cookies[:remember_token])
+      if user && user.authenticated?(:remember, cookies[:remember_token])
         log_in user
         @current_user = user
       end
