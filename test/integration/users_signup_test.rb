@@ -6,13 +6,12 @@ class UsersSignup < ActionDispatch::IntegrationTest
     ActionMailer::Base.deliveries.clear
   end
 end
-  
+
 class UsersSignupTest < UsersSignup
 
   test "invalid signup information" do
     assert_no_difference 'User.count' do
       post users_path, params: { user: { firstname:  "",
-                                         lastname: "d",
                                          email: "user@invalid",
                                          password:              "foo",
                                          password_confirmation: "bar" } }
@@ -25,9 +24,10 @@ class UsersSignupTest < UsersSignup
 
   test "valid signup information with account activation" do
     assert_difference 'User.count', 1 do
-      post users_path, params: { user: { firstname:  "Example User",
-                                         lastname: "Kr",
-                                         email: "user@example.com",
+      post users_path, params: { user: { id: "1",
+                                         firstname:  "Example",
+                                         lastname: "COM",
+                                         email: "foo@gmail.com",
                                          password:              "password",
                                          password_confirmation: "password" } }
     end
@@ -39,7 +39,8 @@ class AccountActivationTest < UsersSignup
 
   def setup
     super
-    post users_path, params: { user: { firstname:  "Example",
+    post users_path, params: { user: { id: "1",
+                                       firstname:  "Example",
                                        lastname: "User",
                                        email: "user@example.com",
                                        password:              "password",
