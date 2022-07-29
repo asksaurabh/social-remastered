@@ -22,11 +22,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if(@user.save)
-      # On successful save, log in the user and redirect to user's profile
-      reset_session         # Guard against session-fixation attacks
-      log_in @user
-      flash[:success] = "Welcome to the Socials!"
-      redirect_to @user
+      # On successful save, ask the use to activate the account
+      UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "Please check your email to activate your account"
+      redirect_to root_url
     else
       # Render the signup page(new.html.erb) with error messages
       render 'new', status: :unprocessable_entity
