@@ -2,6 +2,7 @@ class PasswordResetsController < ApplicationController
   def new
   end
 
+  # POST req to Forgot password page
   def create
     @user = User.find_by(email: params[:password_reset][:email].downcase)
     if @user
@@ -15,6 +16,7 @@ class PasswordResetsController < ApplicationController
     end
   end
 
+  # Reset link renders this page
   def edit
   end
 end
