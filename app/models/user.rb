@@ -65,6 +65,12 @@ class User < ApplicationRecord
     UserMailer.password_reset(self).deliver_now
   end
 
+  # Returns true if a password reset has expired.
+  def password_reset_expired?
+    # Password reset sent earlier than two hours ago.
+    reset_sent_at < 2.hours.ago
+  end
+
   private
     # Converts email to all lowercase.
     def downcase_email
