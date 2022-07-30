@@ -37,6 +37,7 @@ class PasswordResetsController < ApplicationController
       @user.forget        # To save hijacked sessions                  
       reset_session
       log_in @user
+      @user.update_attribute(:reset_digest, nil) # Once reset link used, can't be used again.
       flash[:success] = "Password has been reset."
       redirect_to @user
 
