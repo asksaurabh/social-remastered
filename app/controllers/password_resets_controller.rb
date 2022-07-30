@@ -1,7 +1,7 @@
 class PasswordResetsController < ApplicationController
   before_action :get_user,   only: [:edit, :update]
   before_action :valid_user, only: [:edit, :update]
-  before_action :check_expiration, only: [:edit, :update]
+  before_action :check_expiration, only: [:edit, :update] # Check if reset link has expired or not (Check - 1)
 
   def new
   end
@@ -26,16 +26,23 @@ class PasswordResetsController < ApplicationController
 
   # PATCH req to update the password
   def update
-    if params[:user][:password].empty?                  # Case 3
+
+    # If password entered is empty
+    if params[:user][:password].empty?                  
       @user.errors.add(:password, "can't be empty")
       render 'edit', status: :unprocessable_entity
-    elsif @user.update(user_params)                     # Case 4
+
+    # A successful update 
+    elsif @user.update(user_params)   
+      @user.forget        # To save hijacked sessions                  
       reset_session
       log_in @user
       flash[:success] = "Password has been reset."
       redirect_to @user
+
+    # Invalid password
     else
-      render 'edit', status: :unprocessable_entity      # Case 2
+      render 'edit', status: :unprocessable_entity      
     end
   end 
 
