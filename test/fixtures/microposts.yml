@@ -4,7 +4,7 @@ orange:
   user: saurabh
 
 tau_manifesto:
-  content: "Check out the @tauday site by @mhartl: https://tauday.com"
+  content: "Check out me"
   created_at: <%= 3.years.ago %>
   user: saurabh
 
