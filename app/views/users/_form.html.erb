@@ -1,7 +1,7 @@
 <!-- Form to fill fn, ln, email, password, password_confir -->
 
 <%= form_with(model: @user) do |f| %>
-  <%= render 'shared/error_messages' %>
+  <%= render 'shared/error_messages', object: f.object %>
 
   <%= f.label :firstname, "First Name" %>
   <%= f.text_field :firstname, class: 'form-control' %>
