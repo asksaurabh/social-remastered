@@ -4,7 +4,7 @@ class MicropostTest < ActiveSupport::TestCase
   
   def setup
     @user = users(:saurabh)
-    # This code is not idiomatically correct.
+    # This code is idiomatically correct.
     @micropost = @user.microposts.build(content: "Lorem ipsum")
   end
 
