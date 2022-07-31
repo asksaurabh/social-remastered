@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   # GET request to show user profile
   def show
     @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   # POST request to create a new user.
