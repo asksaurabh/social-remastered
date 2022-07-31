@@ -18,11 +18,8 @@ class MicropostsController < ApplicationController
     flash[:success] = "User deleted"
 
     # Since delete req can come from home or profile
-    if request.referrer.nil?
-      redirect_to root_url, status: :see_other
-    else
-      redirect_to request.referrer, status: :see_other
-    end
+    # handles reffering URL if nil
+    redirect_back_or_to(root_url, status: :see_other)
   end 
 
   private
