@@ -112,6 +112,7 @@ class UserTest < ActiveSupport::TestCase
     saurabh = users(:saurabh)
     archer  = users(:archer)
     lana    = users(:lana)
+    # See relationships.yml
     # Posts from followed user
     lana.microposts.each do |post_following|
       assert saurabh.feed.include?(post_following)
